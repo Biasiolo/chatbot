@@ -36,7 +36,8 @@ export default function ChatWidget({ onClose }) {
   };
 
   return (
-    <div className="fixed bottom-20 right-4 w-[35vw] h-[80vh] bg-white shadow-xl flex flex-col z-50 rounded-[28px] overflow-hidden border border-gray-200">
+    <div className="fixed bottom-4 right-4 w-[35vw] h-[80vh] bg-white shadow-xl flex flex-col z-50 rounded-[28px] overflow-hidden border border-gray-200
+  sm:w-[90vw] sm:h-[90vh] sm:rounded-2xl sm:left-1/2 sm:transform sm:-translate-x-1/2">
       {/* Header */}
       <div className="p-4 border-b bg-blue-600 text-white flex justify-between items-start">
         <div>
