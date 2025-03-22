@@ -8,6 +8,7 @@ export default function ChatWidget({ onClose }) {
   const [input, setInput] = useState("");
   const [personality, setPersonality] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const chatContainerRef = useRef(null);
@@ -32,21 +33,61 @@ export default function ChatWidget({ onClose }) {
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
-  // Lidar com o problema do teclado virtual em dispositivos móveis
+  // Detectar abertura do teclado em dispositivos móveis
   useEffect(() => {
-    const handleResize = () => {
-      // Ajustar a posição do scroll para manter a visualização das mensagens
-      if (isMobile && messagesEndRef.current) {
-        setTimeout(() => {
-          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, 100);
+    if (!isMobile) return;
+
+    // Adicionar meta viewport para prevenir zoom
+    const metaViewport = document.querySelector('meta[name=viewport]');
+    const originalContent = metaViewport?.getAttribute('content') || '';
+    
+    if (metaViewport) {
+      metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+      document.head.appendChild(meta);
+    }
+
+    // Detecção de teclado baseada na mudança de altura da visualização
+    const initialHeight = window.innerHeight;
+    const handleResizeKeyboard = () => {
+      const currentHeight = window.innerHeight;
+      
+      // Se a altura diminuir significativamente, provavelmente o teclado está aberto
+      if (currentHeight < initialHeight * 0.75) {
+        setIsKeyboardOpen(true);
+      } else {
+        setIsKeyboardOpen(false);
       }
+      
+      // Assegurar que o scroll está no lugar certo
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResizeKeyboard);
     
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResizeKeyboard);
+      // Restaurar meta viewport original
+      if (metaViewport && originalContent) {
+        metaViewport.setAttribute('content', originalContent);
+      }
+    };
   }, [isMobile]);
+
+  // Foco no input e ajuste de scroll quando o teclado fecha
+  useEffect(() => {
+    if (isMobile && !isKeyboardOpen && messages.length > 0) {
+      // Quando o teclado fecha, garantir que o scroll está no lugar certo
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  }, [isKeyboardOpen, isMobile, messages.length]);
 
   const handleSend = async () => {
     if (!input.trim() || !personality) return;
@@ -91,14 +132,38 @@ export default function ChatWidget({ onClose }) {
     }
   };
 
+  // Prevenir o zoom ao focar no input em iOS
+  const handleFocus = () => {
+    if (isMobile) {
+      // Em iOS, o zoom pode ocorrer quando focamos em inputs com font-size menor que 16px
+      document.documentElement.style.fontSize = '16px';
+    }
+  };
+
+  const handleBlur = () => {
+    if (isMobile) {
+      document.documentElement.style.fontSize = '';
+    }
+  };
+
   return (
     <div 
       ref={chatContainerRef}
       className={`fixed bg-white shadow-xl flex flex-col z-50 rounded-[28px] overflow-hidden border border-gray-200
         ${isMobile 
-          ? "bottom-20 left-0 right-0 mx-auto max-w-full md:max-w-[420px] h-[80vh] max-h-[720px]" 
+          ? isKeyboardOpen 
+            ? "bottom-0 left-0 right-0 mx-auto max-w-full h-auto min-h-[50vh]" 
+            : "bottom-0 left-0 right-0 mx-auto max-w-full md:max-w-[420px] h-[70vh] max-h-[720px]" 
           : "bottom-20 right-5 max-w-[420px] w-full h-[720px]"
         }`}
+      style={{
+        // Evitar que o navegador faça zoom/scroll quando o teclado abre
+        position: 'fixed',
+        transform: isMobile ? 'translateZ(0)' : undefined,
+        willChange: isMobile ? 'transform' : undefined,
+        // Ajustar altura quando o teclado está aberto
+        height: isMobile && isKeyboardOpen ? 'auto' : undefined
+      }}
     >
       {/* Header */}
       <div className="p-4 border-b bg-blue-600 text-white flex justify-between items-start">
@@ -127,7 +192,7 @@ export default function ChatWidget({ onClose }) {
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-gray-50">
+      <div className={`flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-gray-50 ${isMobile && isKeyboardOpen ? 'max-h-[30vh]' : ''}`}>
         {messages.length === 0 && !loading && (
           <div className="text-center text-gray-500 p-4">
             {personality 
@@ -175,12 +240,15 @@ export default function ChatWidget({ onClose }) {
           <input
             ref={inputRef}
             type="text"
-            className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder={personality ? "Digite sua mensagem..." : "Selecione uma personalidade primeiro"}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             disabled={!personality || loading}
+            style={{ fontSize: '16px' }} // Importante para iOS: evita o zoom automático
           />
           <button
             className={`px-4 py-2 cursor-pointer rounded-full text-sm font-medium transition ${
