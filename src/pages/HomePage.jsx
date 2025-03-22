@@ -21,7 +21,7 @@ export default function HomePage() {
       )}
 
       {/* Chat flutuante no canto inferior direito */}
-      {isChatOpen && <ChatWidget onClose={() => setIsChatOpen(false)}  className="rounded-3xl p-4" />}
+      {isChatOpen && <ChatWidget onClose={() => setIsChatOpen(false)}  className="rounded-3xl" />}
     </div>
   );
 }
