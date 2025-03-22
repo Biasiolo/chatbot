@@ -5,7 +5,7 @@ export default function HomePage() {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
-    <div className="relative w-full h-[100vh] overflow-hidden bg-gray-100 flex items-center justify-center text-center p-4">
+    <div className="relative w-full h-[100vh] overflow-auto bg-gray-100 flex items-center justify-center text-center p-4">
       <h1 className="text-3xl font-bold text-gray-800">
         CLIQUE NO BOTÃO E CONVERSE COM DIFERENTES PERSONALIDADES
       </h1>
