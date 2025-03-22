@@ -152,9 +152,9 @@ export default function ChatWidget({ onClose }) {
       className={`fixed bg-white shadow-xl flex flex-col z-50 rounded-[28px] overflow-hidden border border-gray-200
         ${isMobile 
           ? isKeyboardOpen 
-            ? "bottom-0 left-0 right-0 mx-auto max-w-full h-auto min-h-[50vh]" 
-            : "bottom-0 left-0 right-0 mx-auto max-w-full md:max-w-[420px] h-[70vh] max-h-[620px]" 
-          : "bottom-0 right-5 max-w-[420px] w-full h-[620px]"
+            ? "bottom-0 left-0 right-0 mx-auto max-w-full h-auto min-h-[80vh]" 
+            : "bottom-5 left-0 right-0 mx-auto max-w-full md:max-w-[420px] h-[80vh] max-h-[80vh]" 
+          : "bottom-5  max-w-[420px] w-full h-[80vh]"
         }`}
       style={{
         // Evitar que o navegador faça zoom/scroll quando o teclado abre
