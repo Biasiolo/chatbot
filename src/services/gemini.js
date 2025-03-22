@@ -21,7 +21,7 @@ export async function sendMessageToGemini(userMessage) {
           temperature: 0.7,         // Menor = mais direto, maior = mais criativo
           topP: 0.8,                // Nucleus sampling
           topK: 20,                 // Considera as 20 melhores opções
-          maxOutputTokens: 300,    // Limita o comprimento da resposta
+          maxOutputTokens: 80,    // Limita o comprimento da resposta
         },
       }
     );

@@ -153,7 +153,7 @@ export default function ChatWidget({ onClose }) {
         ${isMobile 
           ? isKeyboardOpen 
             ? "bottom-0 left-0 right-0 mx-auto max-w-full h-auto min-h-[50vh]" 
-            : "bottom-0 left-0 right-0 mx-auto max-w-full md:max-w-[420px] h-[70vh] max-h-[720px]" 
+            : "bottom-20 left-0 right-0 mx-auto max-w-full md:max-w-[420px] h-[70vh] max-h-[720px]" 
           : "bottom-20 right-5 max-w-[420px] w-full h-[720px]"
         }`}
       style={{
