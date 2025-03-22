@@ -9,31 +9,10 @@ export default function ChatWidget({ onClose }) {
   const [personality, setPersonality] = useState(null);
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const widgetRef = useRef(null);
-  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
 
-  // Scroll automático ao final
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
-  // Altura dinâmica para corrigir comportamento com teclado no mobile
-  useEffect(() => {
-    const handleResize = () => {
-      const height = window.visualViewport?.height || window.innerHeight;
-      setViewportHeight(height);
-    };
-
-    window.visualViewport?.addEventListener("resize", handleResize);
-    window.addEventListener("resize", handleResize);
-
-    handleResize(); // aplica altura inicial
-
-    return () => {
-      window.visualViewport?.removeEventListener("resize", handleResize);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const handleSend = async () => {
     if (!input.trim() || !personality) return;
@@ -49,10 +28,6 @@ export default function ChatWidget({ onClose }) {
     const botMessage = { role: "bot", text: responseText };
     setMessages((prev) => [...prev, botMessage]);
     setLoading(false);
-
-    setTimeout(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
   };
 
   const handleClearChat = () => {
@@ -61,11 +36,7 @@ export default function ChatWidget({ onClose }) {
   };
 
   return (
-    <div
-      ref={widgetRef}
-      style={{ height: `${viewportHeight - 16}px` }}
-      className="fixed inset-x-2 bottom-2 sm:inset-auto sm:bottom-4 sm:right-4 sm:left-auto sm:translate-x-0 sm:w-[35vw] sm:h-[80vh] max-w-full w-[90vw] bg-white shadow-xl flex flex-col z-50 rounded-2xl sm:rounded-[28px] overflow-hidden border border-gray-200"
-    >
+    <div className=" fixed bottom-20 right-5 max-w-[420px] h-[720px] bg-white shadow-xl flex flex-col z-50 rounded-[28px] overflow-hidden border border-gray-200">
       {/* Header */}
       <div className="p-4 border-b bg-blue-600 text-white flex justify-between items-start">
         <div>
@@ -78,23 +49,17 @@ export default function ChatWidget({ onClose }) {
             }}
           />
         </div>
-        <button
-          onClick={onClose}
-          className="text-yellow-400 font-bold text-sm hover:opacity-80"
-        >
+        <button onClick={onClose} className="text-yellow-500 font-bold text-sm hover:opacity-80">
           X
         </button>
       </div>
 
-      {/* Info da Personalidade */}
       {personality && (
         <div className="bg-blue-50 text-blue-900 text-xs text-center py-1 px-3">
-          Conversando com: <strong>{personality.name}</strong> —{" "}
-          {personality.description}
+          Conversando com: <strong>{personality.name}</strong> — {personality.description}
         </div>
       )}
 
-      {/* Mensagens */}
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-gray-50">
         {messages.map((msg, index) => (
           <div
@@ -114,13 +79,10 @@ export default function ChatWidget({ onClose }) {
             </div>
           </div>
         ))}
-        {loading && (
-          <div className="text-center text-gray-500 text-sm">Pensando...</div>
-        )}
+        {loading && <div className="text-center text-gray-500 text-sm">Pensando...</div>}
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input */}
       <div className="p-3 border-t bg-white flex flex-col gap-2">
         <div className="flex gap-2 items-center">
           <input
