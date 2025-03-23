@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function ChatSection({
   personality,
@@ -16,6 +16,12 @@ export default function ChatSection({
   isMobile,
   isKeyboardOpen
 }) {
+  useEffect(() => {
+    if (!loading) {
+      inputRef?.current?.focus();
+    }
+  }, [inputRef, loading]);
+
   return (
     <div
       ref={chatContainerRef}
