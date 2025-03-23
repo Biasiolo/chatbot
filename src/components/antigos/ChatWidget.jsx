@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { sendMessageToGemini } from "../services/gemini";
-import { PERSONALITIES } from "../services/personalities";
-import PersonalitySelector from "./PersonalitySelector";
+import { sendMessageToGemini } from "../../services/gemini";
+import { PERSONALITIES } from "../../services/personalities";
+import PersonalitySelector from "../PersonalitySelector";
 
 export default function ChatWidget({ onClose }) {
   const [messages, setMessages] = useState([]);
