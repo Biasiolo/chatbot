@@ -60,7 +60,7 @@ export default function ChatSection({
                   : "bg-gray-700 text-white rounded-bl-sm"
               }`}
             >
-              {msg.text}
+              <pre className="whitespace-pre-wrap break-words font-sans">{msg.text}</pre>
             </div>
           </div>
         ))}
@@ -82,14 +82,19 @@ export default function ChatSection({
 
       <div className="border-t border-gray-700 p-4 flex flex-col gap-2 bg-black/30">
         <div className="flex gap-2">
-          <input
+          <textarea
             ref={inputRef}
-            type="text"
-            className="flex-1 border border-gray-600 rounded-full px-4 py-2 text-base bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
+            className="flex-1 border border-gray-600 rounded-xl px-4 py-2 text-base bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 resize-none"
+            rows={2}
             placeholder="Digite sua mensagem..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
             onFocus={handleFocus}
             onBlur={handleBlur}
             disabled={!personality || loading}
