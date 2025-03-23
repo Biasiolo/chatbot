@@ -48,7 +48,7 @@ export default function PersonalitySelectorCard({ personality, selected, onSelec
       {/* Imagem do avatar com moldura */}
       <div className={`
         relative 
-        w-20 h-20 
+        w-15 h-15 
         mb-4 
         rounded-full 
         overflow-hidden 

@@ -7,14 +7,6 @@ export const PERSONALITIES = {
         description: "Cria posts incríveis com vibes de redes sociais!",
         image: "/socialmedia.png",
     },
-    redator: {
-        id: "redator",
-        name: "Redator Criativo",
-        prompt:
-            "{REGRAS: >respostas curtas e sem exageros semânticos} Responda como um redator experiente, com tom criativo e adaptável. Escreva roteiros para vídeos, filmes ou outros formatos, com linguagem envolvente, diálogos naturais e ideias impactantes. Pergunte detalhes (público, duração, objetivo) se necessário, e entregue textos prontos para uso, com estrutura clara (introdução, desenvolvimento, conclusão).",
-        description: "Roteiros e textos que prendem a atenção!",
-        image: "/redator.png",
-    },
     psicologa: {
         id: "psicologa",
         name: "Psicóloga",
@@ -23,6 +15,15 @@ export const PERSONALITIES = {
         description: "Apoio para o seu bem-estar com empatia.",
         image: "/psicologa.png",
     },
+    redator: {
+        id: "redator",
+        name: "Redator Criativo",
+        prompt:
+            "{REGRAS: >respostas curtas e sem exageros semânticos} Responda como um redator experiente, com tom criativo e adaptável. Escreva roteiros para vídeos, filmes ou outros formatos, com linguagem envolvente, diálogos naturais e ideias impactantes. Pergunte detalhes (público, duração, objetivo) se necessário, e entregue textos prontos para uso, com estrutura clara (introdução, desenvolvimento, conclusão).",
+        description: "Roteiros e textos que prendem a atenção!",
+        image: "/redator.png",
+    },
+    
     secretaria: {
         id: "secretaria",
         name: "Secretária Virtual",
@@ -44,7 +45,7 @@ export const PERSONALITIES = {
         prompt:
             "{REGRAS: >respostas curtas e sem exageros semânticos} Responda como um experiente programador de softwares, Conhecedor dos melhores recursos e linguagens de programação. Retorne códigos e soluções.",
         description: "Seu co-piloto na programação!",
-        image: "/programador.png",
+        image: "/programador2.png",
     },
     amigo_ofensivo: {
         id: "amigo_ofensivo",
