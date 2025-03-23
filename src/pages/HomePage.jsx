@@ -2,13 +2,69 @@ import React, { useState, useRef, useEffect } from "react";
 import { sendMessageToGemini } from "../services/gemini";
 import { PERSONALITIES } from "../services/personalities";
 import PersonalitySelectorCard from "../components/PersonalitySelectorCard";
+import ChatSection from "../components/ChatSection";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function HomePage() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [personality, setPersonality] = useState(PERSONALITIES.amigo_ofensivo);
+  const [personality, setPersonality] = useState(PERSONALITIES.psicologa);
   const [loading, setLoading] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
+  const chatContainerRef = useRef(null);
+  const sliderRef = useRef(null);
+
+  useEffect(() => {
+    let metaViewport = document.querySelector('meta[name=viewport]');
+    const originalContent = metaViewport?.getAttribute('content') || '';
+    if (!metaViewport) {
+      metaViewport = document.createElement('meta');
+      metaViewport.name = 'viewport';
+      document.head.appendChild(metaViewport);
+    }
+    metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+    return () => {
+      if (metaViewport && originalContent) {
+        metaViewport.setAttribute('content', originalContent);
+      } else if (metaViewport) {
+        metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const initialHeight = window.innerHeight;
+    const handleResizeKeyboard = () => {
+      const currentHeight = window.innerHeight;
+      if (currentHeight < initialHeight * 0.75) {
+        setIsKeyboardOpen(true);
+      } else {
+        setIsKeyboardOpen(false);
+        setTimeout(() => {
+          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, 300);
+      }
+    };
+    window.addEventListener('resize', handleResizeKeyboard);
+    return () => {
+      window.removeEventListener('resize', handleResizeKeyboard);
+    };
+  }, [isMobile]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -16,114 +72,158 @@ export default function HomePage() {
 
   const handleSend = async () => {
     if (!input.trim() || !personality) return;
-
     const userMessage = { role: "user", text: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
-
-    const promptFinal = `${personality.prompt}\nUsuário: ${input}`;
-    const responseText = await sendMessageToGemini(promptFinal);
-
-    const botMessage = { role: "bot", text: responseText };
-    setMessages((prev) => [...prev, botMessage]);
-    setLoading(false);
+    try {
+      const promptFinal = `${personality.prompt}\nUsuário: ${input}`;
+      const responseText = await sendMessageToGemini(promptFinal);
+      const botMessage = { role: "bot", text: responseText };
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (error) {
+      console.error("Erro ao enviar mensagem:", error);
+      const errorMessage = {
+        role: "bot",
+        text: "Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente."
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setLoading(false);
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
   };
 
   const handleClearChat = () => {
     setMessages([]);
     setInput("");
+    inputRef.current?.focus();
+  };
+
+  const handleFocus = () => {
+    if (isMobile) {
+      document.documentElement.style.fontSize = '16px';
+    }
+  };
+
+  const handleBlur = () => {
+    if (isMobile) {
+      document.documentElement.style.fontSize = '';
+    }
+  };
+
+  // Configurações do carrossel com react-slick
+  const sliderSettings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 6,
+    initialSlide: 0,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 5,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        }
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        }
+      }
+    ]
+  };
+  
+  const nextSlide = () => {
+    sliderRef.current.slickNext();
+  };
+  
+  const prevSlide = () => {
+    sliderRef.current.slickPrev();
   };
 
   return (
-    <div className="min-h-screen px-4 py-8 bg-gray-950">
-      {/* Título */}
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+    <div className="min-h-screen px-4 py-8 bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
+      <h1 className="text-3xl font-bold text-center mb-8">
         Escolha um Modelo de ChatBot 🤖
       </h1>
 
-      {/* Cards de modelos */}
-      <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mb-10 place-items-center ">
-        {Object.values(PERSONALITIES).map((personalityOption) => (
-          <PersonalitySelectorCard
-            key={personalityOption.id}
-            personality={personalityOption}
-            selected={personality?.id === personalityOption.id}
-            onSelect={() => {
-              setPersonality(personalityOption);
-              setMessages([]);
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Chat */}
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-        {/* Header */}
-        {personality && (
-          <div className="bg-blue-600 text-white p-4">
-            <h2 className="text-lg font-semibold">
-              Conversando com: {personality.name}
-            </h2>
-            <p className="text-sm text-blue-100">{personality.description}</p>
-          </div>
-        )}
-
-        {/* Mensagens */}
-        <div className="h-[400px] overflow-y-auto p-4 space-y-3 bg-gray-50">
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <div
-                className={`px-4 py-2 rounded-2xl max-w-[75%] text-sm shadow-md ${
-                  msg.role === "user"
-                    ? "bg-blue-500 text-white rounded-br-sm"
-                    : "bg-gray-200 text-gray-900 rounded-bl-sm"
-                }`}
-              >
-                {msg.text}
-              </div>
+      <div className="max-w-6xl mx-auto mb-10 relative">
+        {/* Botões de navegação personalizados */}
+        <button 
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
+          onClick={prevSlide}
+          style={{ marginLeft: '-15px' }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        
+        {/* Carrossel usando react-slick */}
+        <Slider ref={sliderRef} {...sliderSettings}>
+          {Object.values(PERSONALITIES).map((personalityOption) => (
+            <div key={personalityOption.id} className="px-2">
+              <PersonalitySelectorCard
+                personality={personalityOption}
+                selected={personality?.id === personalityOption.id}
+                onSelect={() => {
+                  setPersonality(personalityOption);
+                  setMessages([]);
+                }}
+              />
             </div>
           ))}
-          {loading && (
-            <div className="text-center text-gray-500 text-sm">Pensando...</div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input */}
-        <div className="border-t p-4 flex flex-col gap-2">
-          <div className="flex gap-2">
-            <input
-              type="text"
-              className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Digite sua mensagem..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              disabled={!personality}
-            />
-            <button
-              className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition"
-              onClick={handleSend}
-              disabled={loading || !personality}
-            >
-              Enviar
-            </button>
-          </div>
-          <div className="text-center">
-            <button
-              onClick={handleClearChat}
-              className="text-gray-500 text-xs hover:text-red-500 transition"
-              disabled={messages.length === 0}
-            >
-              🗑️ Limpar conversa
-            </button>
-          </div>
-        </div>
+        </Slider>
+        
+        <button 
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
+          onClick={nextSlide}
+          style={{ marginRight: '-15px' }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
+
+      <ChatSection
+        personality={personality}
+        input={input}
+        setInput={setInput}
+        messages={messages}
+        loading={loading}
+        inputRef={inputRef}
+        chatContainerRef={chatContainerRef}
+        messagesEndRef={messagesEndRef}
+        handleSend={handleSend}
+        handleClearChat={handleClearChat}
+        handleFocus={handleFocus}
+        handleBlur={handleBlur}
+        isMobile={isMobile}
+        isKeyboardOpen={isKeyboardOpen}
+      />
     </div>
   );
 }
