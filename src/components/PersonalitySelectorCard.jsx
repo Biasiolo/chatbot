@@ -17,12 +17,12 @@ export default function PersonalitySelectorCard({ personality, selected, onSelec
         transition-all 
         duration-300 
         ease-in-out
-        hover:-translate-y-2
+        shadow-indigo-600
         relative
         overflow-hidden
         ${selected 
           ? "bg-gradient-to-br from-purple-600/90 to-indigo-800/90 shadow-lg shadow-purple-500/30 border border-purple-400/50" 
-          : "bg-gradient-to-br from-gray-800/90 to-gray-900/90 border border-gray-700/50 hover:shadow-lg hover:shadow-indigo-500/20"
+          : "bg-gradient-to-br from-gray-800/90 to-gray-900/90 border border-gray-700/50 hover:shadow-lg hover:shadow-purple-500/60"
         }
       `}
       style={{

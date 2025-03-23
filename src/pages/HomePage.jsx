@@ -184,7 +184,7 @@ export default function HomePage() {
         {/* Carrossel usando react-slick */}
         <Slider ref={sliderRef} {...sliderSettings}>
           {Object.values(PERSONALITIES).map((personalityOption) => (
-            <div key={personalityOption.id} className="px-2">
+            <div key={personalityOption.id} className="p-2">
               <PersonalitySelectorCard
                 personality={personalityOption}
                 selected={personality?.id === personalityOption.id}

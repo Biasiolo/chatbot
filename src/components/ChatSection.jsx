@@ -27,7 +27,7 @@ export default function ChatSection({
       }}
     >
       {personality && (
-        <div className="bg-gradient-to-r from-indigo-700 to-purple-800 text-white p-4">
+        <div className="bg-gradient-to-r from-indigo-700 to-purple-900 text-white p-4">
           <h2 className="text-lg font-semibold">
             Conversando com: {personality.name}
           </h2>
