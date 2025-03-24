@@ -58,9 +58,7 @@ export default function HomePage() {
         setIsKeyboardOpen(true);
       } else {
         setIsKeyboardOpen(false);
-        setTimeout(() => {
-          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, 300);
+
       }
     };
     window.addEventListener('resize', handleResizeKeyboard);
