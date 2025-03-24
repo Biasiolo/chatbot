@@ -22,6 +22,8 @@ export default function HomePage() {
   const chatContainerRef = useRef(null);
   const sliderRef = useRef(null);
 
+  
+
   useEffect(() => {
     let metaViewport = document.querySelector('meta[name=viewport]');
     const originalContent = metaViewport?.getAttribute('content') || '';
@@ -39,6 +41,8 @@ export default function HomePage() {
       }
     };
   }, []);
+
+  
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -58,7 +62,9 @@ export default function HomePage() {
         setIsKeyboardOpen(true);
       } else {
         setIsKeyboardOpen(false);
-
+        setTimeout(() => {
+          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, 300);
       }
     };
     window.addEventListener('resize', handleResizeKeyboard);
@@ -70,6 +76,10 @@ export default function HomePage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
   const handleSend = async () => {
     if (!input.trim() || !personality) return;
@@ -167,9 +177,9 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen px-4 py-8 bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
+      <div className="min-h-screen px-4 pt-6 bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
       
-    <h1 className="text-4xl font-extrabold text-center mb-2 titlepage">
+    <h1 className="text-5xl font-extrabold text-center mb-2 titlepage">
       <span style={{ color: '#6834fa' }}>Yoo</span>
       <span
         style={{
@@ -188,12 +198,12 @@ export default function HomePage() {
     </p>
 
         <div className="max-w-6xl mx-auto mb-10 relative">
-        <h2 className="text-3xl font-bold text-center mb-8">
-          Escolha um Modelo de ChatBot 🤖
+        <h2 className="text-3xl font-bold text-center mb-8 text-zinc-100">
+          Escolha um modelo de chatbot para conversar
         </h2>
           {/* Botões de navegação personalizados */}
           <button
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
+            className="absolute left-0 top-1/2 transform -translate-y-1/-2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
             onClick={prevSlide}
             style={{ marginLeft: '-15px' }}
           >
@@ -219,7 +229,7 @@ export default function HomePage() {
           </Slider>
 
           <button
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
+            className="absolute right-0 top-1/2 transform -translate-y-1/-2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
             onClick={nextSlide}
             style={{ marginRight: '-15px' }}
           >
