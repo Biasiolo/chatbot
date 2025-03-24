@@ -44,7 +44,7 @@ export default function ChatSection({
       <div
         className={`${
           isMobile && isKeyboardOpen ? 'h-[200px]' : 'h-[380px]'
-        } overflow-y-auto p-4 space-y-3 bg-gray-600/20 `}
+        } overflow-y-auto p-4 space-y-3 bg-gray-600/20`}
       >
         {messages.length === 0 && !loading && (
           <div className="text-center text-gray-300 p-4">
@@ -54,25 +54,40 @@ export default function ChatSection({
           </div>
         )}
 
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-          >
+        {messages.map((msg, index) => {
+          const isUser = msg.role === "user";
+          return (
             <div
-              className={`px-4 py-2 rounded-2xl max-w-[75%] text-sm shadow-md  ${
-                msg.role === "user"
-                  ? "bg-indigo-600 text-white rounded-br-sm"
-                  : "bg-gray-700 text-white rounded-bl-sm"
-              }`}
+              key={index}
+              className={`flex items-start ${isUser ? "justify-end" : "justify-start"}`}
             >
-              <pre className="whitespace-pre-wrap break-words font-sans">{msg.text}</pre>
+              {!isUser && (
+                <img
+                  src={personality.image}
+                  alt="avatar"
+                  className="w-8 h-8 rounded-full mr-2 object-cover border border-purple-600 shadow-md"
+                />
+              )}
+              <div
+                className={`px-4 py-2 rounded-2xl max-w-[75%] text-sm shadow-md whitespace-pre-wrap break-words font-sans ${
+                  isUser
+                    ? "bg-indigo-600 text-white rounded-br-sm"
+                    : "bg-gray-700 text-white rounded-bl-sm"
+                }`}
+              >
+                {msg.text}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {loading && (
-          <div className="flex justify-start">
+          <div className="flex justify-start items-center">
+            <img
+              src={personality.image}
+              alt="avatar"
+              className="w-8 h-8 rounded-full mr-2 object-cover border border-purple-600 shadow-md"
+            />
             <div className="bg-gray-700 text-gray-100 px-4 py-2 rounded-2xl rounded-bl-sm max-w-[75%] text-sm shadow-md">
               <div className="flex space-x-1">
                 <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
@@ -86,6 +101,7 @@ export default function ChatSection({
         <div ref={messagesEndRef} />
       </div>
 
+      {/* Input e botão */}
       <div className="border-t border-gray-700 p-4 flex flex-col gap-2 bg-black/30">
         <div className="flex gap-2">
           <textarea

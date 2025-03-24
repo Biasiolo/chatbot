@@ -8,6 +8,7 @@ import ChatSection from "../components/ChatSection";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Footer from "../components/Footer";
 
 export default function HomePage() {
   const [messages, setMessages] = useState([]);
@@ -246,7 +247,9 @@ export default function HomePage() {
           isMobile={isMobile}
           isKeyboardOpen={isKeyboardOpen}
         />
+        <Footer />
       </div>
+      
     </>
   );
 }
