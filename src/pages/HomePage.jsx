@@ -62,9 +62,7 @@ export default function HomePage() {
         setIsKeyboardOpen(true);
       } else {
         setIsKeyboardOpen(false);
-        setTimeout(() => {
-          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, 300);
+        
       }
     };
     window.addEventListener('resize', handleResizeKeyboard);
@@ -73,9 +71,7 @@ export default function HomePage() {
     };
   }, [isMobile]);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
