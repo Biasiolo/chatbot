@@ -22,7 +22,7 @@ export default function HomePage() {
   const chatContainerRef = useRef(null);
   const sliderRef = useRef(null);
 
-  
+
 
   useEffect(() => {
     let metaViewport = document.querySelector('meta[name=viewport]');
@@ -42,7 +42,7 @@ export default function HomePage() {
     };
   }, []);
 
-  
+
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -62,7 +62,7 @@ export default function HomePage() {
         setIsKeyboardOpen(true);
       } else {
         setIsKeyboardOpen(false);
-        
+
       }
     };
     window.addEventListener('resize', handleResizeKeyboard);
@@ -174,31 +174,32 @@ export default function HomePage() {
     <>
       <Navbar />
       <div className="min-h-screen px-4 pt-6 bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
-      
-    <h1 className="text-5xl font-extrabold text-center mb-2 titlepage">
-      <span style={{ color: '#6834fa' }}>Yoo</span>
-      <span
-        style={{
-          color: '#d16ce6',
-          WebkitTextStroke: '1px black',
-          paddingLeft: '4px'
-        }}
-      >
-        Chat!
-      </span>
-    </h1>
 
-    {/* Slogan */}
-    <p className="text-center text-gray-400 text-sm mb-8">
-      Inteligência Artificial com personalidade!
-    </p>
+        <h1 className="text-5xl font-extrabold text-center mb-2 titlepage">
+          <span style={{ color: '#6834fa' }}>Yoo</span>
+          <span
+            style={{
+              color: '#d16ce6',
+              WebkitTextStroke: '1px black',
+              paddingLeft: '4px'
+            }}
+          >
+            Chat!
+          </span>
+        </h1>
+
+        {/* Slogan */}
+        <p className="text-center text-gray-400 text-sm mb-8">
+          Inteligência Artificial com personalidade!
+        </p>
 
         <div className="max-w-6xl mx-auto mb-10 relative">
-        <h2 className="text-3xl font-bold text-center mb-8 text-zinc-100">
-          Escolha um modelo de chatbot para conversar
-        </h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-zinc-100">
+            Escolha um modelo de chatbot para conversar
+          </h2>
           {/* Botões de navegação personalizados */}
           <button
+            aria-label="Voltar carrossel"
             className="absolute left-0 top-1/2 transform -translate-y-1/-2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
             onClick={prevSlide}
             style={{ marginLeft: '-15px' }}
@@ -225,6 +226,7 @@ export default function HomePage() {
           </Slider>
 
           <button
+            aria-label="Avançar carrossel"
             className="absolute right-0 top-1/2 transform -translate-y-1/-2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
             onClick={nextSlide}
             style={{ marginRight: '-15px' }}
@@ -253,7 +255,7 @@ export default function HomePage() {
         />
         <Footer />
       </div>
-      
+
     </>
   );
 }
