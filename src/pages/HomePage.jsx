@@ -97,7 +97,9 @@ export default function HomePage() {
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setLoading(false);
-
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     }
   };
 
