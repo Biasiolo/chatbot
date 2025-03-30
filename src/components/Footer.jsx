@@ -20,13 +20,13 @@ export default function Footer() {
         <div className="flex gap-4">
           <Link
             to="/termos"
-            className="hover:text-white transition"
+            className="text-purple-400 hover:text-purple-300 transition"
           >
             Termos de Serviço
           </Link>
           <Link
             to="/privacidade"
-            className="hover:text-white transition"
+            className="text-purple-400 hover:text-purple-300 transition"
           >
             Política de Privacidade
           </Link>
