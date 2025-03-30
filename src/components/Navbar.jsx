@@ -7,7 +7,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
-          <img src="/logo1.png" alt="YooChat Logo" className="h-11 w-11 rounded-full" />
+          <img src="/logo-w.webp" alt="YooChat Logo" className="h-11 w-11 rounded-full" />
           
         </div>
 
