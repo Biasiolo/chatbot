@@ -141,7 +141,7 @@ export default function ChatSection({
         <div className="text-center">
           <button
             onClick={handleClearChat}
-            className="text-gray-400 text-xs hover:text-red-400 transition p-1"
+            className="text-gray-400 text-xs hover:text-red-400 transition p-1 cursor-pointer"
             disabled={messages.length === 0}
           >
             🗑️ Limpar conversa

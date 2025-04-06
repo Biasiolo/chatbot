@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { supabase } from "../services/supabase";
 import { sendMessageToGemini } from "../services/gemini";
 import { PERSONALITIES } from "../services/personalities";
 import Navbar from "../components/Navbar";
@@ -21,8 +22,20 @@ export default function HomePage() {
   const inputRef = useRef(null);
   const chatContainerRef = useRef(null);
   const sliderRef = useRef(null);
+  const [userName, setUserName] = useState("");
 
-
+  useEffect(() => {
+    const getUserName = async () => {
+      const { data } = await supabase.auth.getUser();
+      const name =
+        data?.user?.user_metadata?.name ||
+        data?.user?.user_metadata?.full_name ||
+        data?.user?.email?.split("@")[0] || "";
+      setUserName(name);
+    };
+  
+    getUserName();
+  }, []);
 
   useEffect(() => {
     let metaViewport = document.querySelector('meta[name=viewport]');
@@ -79,12 +92,21 @@ export default function HomePage() {
 
   const handleSend = async () => {
     if (!input.trim() || !personality) return;
+  
     const userMessage = { role: "user", text: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
+  
     try {
-      const promptFinal = `${personality.prompt}\nUsuário: ${input}`;
+      const promptFinal = `
+  ${personality.prompt}
+  
+  O nome do usuário é "${userName}". Trate-o pelo nome quando possível de forma natural.
+  
+  Usuário: ${input}
+  `;
+  
       const responseText = await sendMessageToGemini(promptFinal);
       const botMessage = { role: "bot", text: responseText };
       setMessages((prev) => [...prev, botMessage]);
@@ -102,6 +124,7 @@ export default function HomePage() {
       }, 100);
     }
   };
+  
 
   const handleClearChat = () => {
     setMessages([]);
@@ -125,7 +148,7 @@ export default function HomePage() {
   const sliderSettings = {
     dots: false,
     infinite: false,
-    speed: 500,
+    speed: 2000,
     slidesToShow: 6,
     slidesToScroll: 6,
     initialSlide: 0,
@@ -189,18 +212,21 @@ export default function HomePage() {
         </h1>
 
         {/* Slogan */}
-        <p className="text-center text-gray-400 text-sm mb-8">
+        <p className="text-center text-gray-400 text-md mb-8">
           Inteligência Artificial com personalidade!
         </p>
 
         <div className="max-w-6xl mx-auto mb-10 relative">
-          <h2 className="text-3xl font-bold text-center mb-8 text-zinc-100">
+          <h2 className="text-3xl font-bold text-center mb-1 text-zinc-100">
             Escolha um modelo de chatbot para conversar
           </h2>
+          <p className="text-center text-gray-400 text-xs mb-6">
+          Faça login para melhor experiência.
+        </p>
           {/* Botões de navegação personalizados */}
           <button
             aria-label="Voltar carrossel"
-            className="absolute left-0 top-1/2 transform -translate-y-1/-2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
+            className="absolute left-0 top-1/2 transform -translate-y-1/-2 z-10 cursor-pointer bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
             onClick={prevSlide}
             style={{ marginLeft: '-15px' }}
           >
@@ -227,7 +253,7 @@ export default function HomePage() {
 
           <button
             aria-label="Avançar carrossel"
-            className="absolute right-0 top-1/2 transform -translate-y-1/-2 z-10 bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
+            className="absolute right-0 top-1/2 transform -translate-y-1/-2 z-10 cursor-pointer bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
             onClick={nextSlide}
             style={{ marginRight: '-15px' }}
           >
