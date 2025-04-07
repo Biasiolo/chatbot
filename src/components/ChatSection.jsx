@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function ChatSection({
   personality,
@@ -42,9 +44,8 @@ export default function ChatSection({
       )}
 
       <div
-        className={`${
-          isMobile && isKeyboardOpen ? 'h-[200px]' : 'h-[380px]'
-        } overflow-y-auto p-4 space-y-3 bg-gray-600/20`}
+        className={`${isMobile && isKeyboardOpen ? 'h-[200px]' : 'h-[380px]'
+          } overflow-y-auto p-4 space-y-3 bg-gray-600/20`}
       >
         {messages.length === 0 && !loading && (
           <div className="text-center text-gray-300 p-4">
@@ -69,13 +70,44 @@ export default function ChatSection({
                 />
               )}
               <div
-                className={`px-4 py-2 rounded-2xl max-w-[75%] text-sm shadow-md whitespace-pre-wrap break-words font-sans ${
-                  isUser
-                    ? "bg-indigo-600 text-zinc-100 rounded-br-sm"
-                    : "bg-gray-700 text-zinc-100 rounded-bl-sm"
-                }`}
+                className={`px-4 py-2 rounded-2xl max-w-[75%] text-sm shadow-md whitespace-pre-wrap break-words font-sans ${isUser
+                  ? "bg-indigo-600 text-zinc-100 rounded-br-sm"
+                  : "bg-gray-700 text-zinc-100 rounded-bl-sm"
+                  }`}
               >
-                {msg.text}
+                {isUser ? (
+                  msg.text
+                ) : (
+                  <ReactMarkdown
+  remarkPlugins={[remarkGfm]}
+  components={{
+    p: ({ children }) => (
+      <p className="text-sm leading-relaxed text-zinc-100 mb-2">{children}</p>
+    ),
+    strong: ({ children }) => (
+      <strong className="font-bold text-md text-blue-300">{children}</strong>
+    ),
+    ul: ({ children }) => (
+      <ul className="list-disc pl-5 text-zinc-100 mb-2">{children}</ul>
+    ),
+    li: ({ children }) => (
+      <li className="mb-1">{children}</li>
+    ),
+    h1: ({ children }) => (
+      <h1 className="text-xl font-bold mb-2 text-blue-300">{children}</h1>
+    ),
+    h2: ({ children }) => (
+      <h2 className="text-lg font-semibold mb-2 text-blue-300">{children}</h2>
+    ),
+    em: ({ children }) => (
+      <em className="italic text-zinc-300">{children}</em>
+    ),
+    br: () => <br />
+  }}
+>
+  {msg.text}
+</ReactMarkdown>
+                )}
               </div>
             </div>
           );
@@ -104,34 +136,33 @@ export default function ChatSection({
       {/* Input e botão */}
       <div className="border-t border-gray-700 p-4 flex flex-col gap-2 bg-black/30">
         <div className="flex gap-2">
-        <textarea
-  ref={inputRef}
-  className="flex-1 border border-gray-600 rounded-xl px-4 py-2 text-base bg-gray-900 text-zinc-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 resize-none"
-  rows={2}
-  placeholder="Digite sua mensagem..."
-  value={input}
-  maxLength={500} // 🔒 Limite de caracteres aqui (ajustável)
-  onChange={(e) => setInput(e.target.value)}
-  onKeyDown={(e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-  }}
-  onFocus={handleFocus}
-  onBlur={handleBlur}
-  disabled={!personality || loading}
-  style={{ fontSize: '16px' }}
-/>
-<p className="text-right text-xs text-gray-400 mt-1">
-  {input.length}/500
-</p>
+          <textarea
+            ref={inputRef}
+            className="flex-1 border border-gray-600 rounded-xl px-4 py-2 text-base bg-gray-900 text-zinc-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 resize-none"
+            rows={2}
+            placeholder="Digite sua mensagem..."
+            value={input}
+            maxLength={500} // 🔒 Limite de caracteres aqui (ajustável)
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            disabled={!personality || loading}
+            style={{ fontSize: '16px' }}
+          />
+          <p className="text-right text-xs text-gray-400 mt-1">
+            {input.length}/500
+          </p>
           <button
-            className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-              !personality || loading || !input.trim()
-                ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                : "bg-purple-600 text-zinc-100 hover:bg-purple-700"
-            }`}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition ${!personality || loading || !input.trim()
+              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+              : "bg-purple-600 text-zinc-100 hover:bg-purple-700"
+              }`}
             onClick={handleSend}
             disabled={loading || !personality || !input.trim()}
           >

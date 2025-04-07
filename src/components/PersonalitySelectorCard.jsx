@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function PersonalitySelectorCard({ personality, selected, onSelect }) {
+
+  const { t } = useTranslation();
   return (
     <div
       onClick={onSelect}
@@ -115,7 +118,7 @@ export default function PersonalitySelectorCard({ personality, selected, onSelec
           : "bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30"
         }
       `}>
-        {selected ? "Selecionado" : "Selecionar"}
+        {selected ? t("selected_label") : t("select_label")}
       </div>
     </div>
   );

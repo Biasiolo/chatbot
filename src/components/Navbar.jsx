@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../services/supabase";
 import { LogOut } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
+
+  const { t } = useTranslation();
   const [user, setUser] = useState(null);
+
 
   // Recupera o usuário ao carregar a Navbar
   useEffect(() => {
@@ -68,10 +72,10 @@ export default function Navbar() {
 
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1 px-3 py-1 text-sm bg-gray-700 hover:bg-red-600 transition rounded-full cursor-pointer"
+              className="flex items-center gap-1 px-3 py-1 text-sm bg-gray-700 hover:bg-rose-700 transition rounded-full cursor-pointer"
             >
               <LogOut size={14} />
-              <span>Sair</span>
+              <span>{t("exit")}</span>
             </button>
           </div>
         ) : (

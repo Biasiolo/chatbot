@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { supabase } from "../services/supabase";
+import { useTranslation } from "react-i18next";
 import { sendMessageToGemini } from "../services/gemini";
 import { PERSONALITIES } from "../services/personalities";
 import Navbar from "../components/Navbar";
@@ -23,6 +24,8 @@ export default function HomePage() {
   const chatContainerRef = useRef(null);
   const sliderRef = useRef(null);
   const [userName, setUserName] = useState("");
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getUserName = async () => {
@@ -206,7 +209,7 @@ export default function HomePage() {
     <>
       <Navbar />
       <div className="min-h-screen px-4 pt-6 bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
-
+  
         <h1 className="text-5xl font-extrabold text-center mb-2 titlepage">
           <span style={{ color: '#6834fa' }}>Yoo</span>
           <span
@@ -219,22 +222,23 @@ export default function HomePage() {
             Chat!
           </span>
         </h1>
-
+  
         {/* Slogan */}
         <p className="text-center text-gray-400 text-md mb-8">
-          Inteligência Artificial com personalidade!
+          {t("slogan")}
         </p>
-
+  
         <div className="max-w-6xl mx-auto mb-10 relative">
           <h2 className="text-3xl font-bold text-center mb-1 text-zinc-100">
-            Escolha um modelo de chatbot para conversar
+            {t("choose_model")}
           </h2>
           <p className="text-center text-gray-400 text-xs mb-6">
-          Faça login para melhor experiência.
-        </p>
+            {t("login_hint")}
+          </p>
+  
           {/* Botões de navegação personalizados */}
           <button
-            aria-label="Voltar carrossel"
+            aria-label={t("carousel_back")}
             className="absolute left-0 top-1/2 transform -translate-y-1/-2 z-10 cursor-pointer bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
             onClick={prevSlide}
             style={{ marginLeft: '-15px' }}
@@ -243,7 +247,7 @@ export default function HomePage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-
+  
           {/* Carrossel usando react-slick */}
           <Slider ref={sliderRef} {...sliderSettings}>
             {Object.values(PERSONALITIES).map((personalityOption) => (
@@ -259,9 +263,9 @@ export default function HomePage() {
               </div>
             ))}
           </Slider>
-
+  
           <button
-            aria-label="Avançar carrossel"
+            aria-label={t("carousel_next")}
             className="absolute right-0 top-1/2 transform -translate-y-1/-2 z-10 cursor-pointer bg-gray-800 bg-opacity-80 p-2 rounded-full text-white shadow-lg hover:bg-gray-700"
             onClick={nextSlide}
             style={{ marginRight: '-15px' }}
@@ -271,7 +275,7 @@ export default function HomePage() {
             </svg>
           </button>
         </div>
-
+  
         <ChatSection
           personality={personality}
           input={input}
@@ -290,7 +294,7 @@ export default function HomePage() {
         />
         <Footer />
       </div>
-
     </>
   );
+  
 }
