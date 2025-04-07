@@ -100,7 +100,7 @@ export default function HomePage() {
   
     try {
       // Limitamos para as últimas 6 mensagens anteriores (ajuste se necessário)
-      const contextMessages = messages.slice(-6)
+      const contextMessages = messages.slice(-8)
         .map((msg) => `${msg.role === "user" ? "Usuário" : "Bot"}: ${msg.text}`)
         .join("\n");
   
