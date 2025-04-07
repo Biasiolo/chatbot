@@ -99,10 +99,18 @@ export default function HomePage() {
     setLoading(true);
   
     try {
+      // Limitamos para as últimas 6 mensagens anteriores (ajuste se necessário)
+      const contextMessages = messages.slice(-6)
+        .map((msg) => `${msg.role === "user" ? "Usuário" : "Bot"}: ${msg.text}`)
+        .join("\n");
+  
       const promptFinal = `
   ${personality.prompt}
   
-  O nome do usuário é "${userName}". Trate-o pelo nome quando possível de forma natural.
+  O nome do usuário é "${userName}". Trate-o pelo nome de forma natural e personalizada.
+  
+  Aqui está o histórico recente da conversa:
+  ${contextMessages}
   
   Usuário: ${input}
   `;
@@ -114,7 +122,7 @@ export default function HomePage() {
       console.error("Erro ao enviar mensagem:", error);
       const errorMessage = {
         role: "bot",
-        text: "Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente."
+        text: "Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.",
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -124,6 +132,7 @@ export default function HomePage() {
       }, 100);
     }
   };
+  
   
 
   const handleClearChat = () => {
