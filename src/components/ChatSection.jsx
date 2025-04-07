@@ -85,7 +85,7 @@ export default function ChatSection({
       <p className="text-sm leading-relaxed text-zinc-100 mb-2">{children}</p>
     ),
     strong: ({ children }) => (
-      <strong className="font-bold text-md text-blue-300">{children}</strong>
+      <strong className="font-bold text-md text-green-400">{children}</strong>
     ),
     ul: ({ children }) => (
       <ul className="list-disc pl-5 text-zinc-100 mb-2">{children}</ul>
@@ -94,10 +94,10 @@ export default function ChatSection({
       <li className="mb-1">{children}</li>
     ),
     h1: ({ children }) => (
-      <h1 className="text-xl font-bold mb-2 text-blue-300">{children}</h1>
+      <h1 className="text-xl font-bold mb-2 text-green-400">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-lg font-semibold mb-2 text-blue-300">{children}</h2>
+      <h2 className="text-lg font-semibold mb-2 text-green-400">{children}</h2>
     ),
     em: ({ children }) => (
       <em className="italic text-zinc-300">{children}</em>
