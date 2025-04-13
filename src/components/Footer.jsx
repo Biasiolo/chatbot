@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="max-w-4xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3">
         {/* Left side: copyright */}
         <p className="text-center sm:text-left w-full sm:w-auto">
-          © {new Date().getFullYear()} YooChat — {t("footer_copyright")}{" "}
+          © {new Date().getFullYear()} YooChat! — {t("footer_copyright")}{" "}
           <a
             href="https://github.com/Biasiolo"
             target="_blank"
