@@ -5,6 +5,7 @@ import { sendMessageToGemini } from "../services/gemini";
 import { PERSONALITIES } from "../services/personalities";
 import Navbar from "../components/Navbar";
 import PersonalitySelectorCard from "../components/PersonalitySelectorCard";
+import { Helmet } from "react-helmet-async";
 
 import ChatSection from "../components/ChatSection";
 import Slider from "react-slick";
@@ -25,7 +26,9 @@ export default function HomePage() {
   const sliderRef = useRef(null);
   const [userName, setUserName] = useState("");
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  
 
   useEffect(() => {
     const getUserName = async () => {
@@ -207,6 +210,15 @@ export default function HomePage() {
 
   return (
     <>
+    <Helmet>
+        <html lang={i18n.language} />
+        <title>{t("meta.title")}</title>
+        <meta name="description" content={t("meta.description")} />
+        <meta property="og:title" content={t("meta.og_title")} />
+        <meta property="og:description" content={t("meta.og_description")} />
+        <meta name="twitter:title" content={t("meta.twitter_title")} />
+        <meta name="twitter:description" content={t("meta.twitter_description")} />
+      </Helmet>
       <Navbar />
       <div className="min-h-screen px-4 pt-6 bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
   

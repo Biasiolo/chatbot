@@ -1,12 +1,29 @@
 {
-    "title": "YooChat!",
-    "slogan": "Artificial Intelligence with personality!",
-    "choose_bot": "Choose a chatbot model to talk to",
-    "login_hint": "Login for a better experience.",
-    "carousel_back": "Back carousel",
-    "carousel_next": "Next carousel",
-    "exit": "sign out",
-    "selected_label": "Selected",
-  "select_label": "Select"
+  "title": "YooChat!",
+  "slogan": "Artificial Intelligence with personality!",
+  "choose_model": "Choose a chatbot model to talk to",
+  "login_hint": "Login for a better experience.",
+  "carousel_back": "Back carousel",
+  "carousel_next": "Next carousel",
+  "exit": "Sign out",
+  "selected_label": "Selected",
+  "select_label": "Select",
+  "footer_copyright": "Developed by",
+  "footer_terms": "Terms of Service",
+  "footer_privacy": "Privacy Policy",
+  "chat_with": "Chatting with",
+  "start_message": "Send a message to start the conversation.",
+  "select_personality": "Select a personality to start.",
+  "send_button": "Send",
+  "clear_button": "Clear chat",
+  "placeholder": "Type your message...",
+
+  "meta": {
+    "title": "YooChat | Chatbot with unique and fun personalities",
+    "description": "Explore YooChat, the chatbot with unique personalities! Get advice, fun or practical help from a personalized AI made for you.",
+    "og_title": "YooChat! - AI with Personality",
+    "og_description": "Chatbots with attitude, empathy, creativity and humor. The most fun way to talk to AI.",
+    "twitter_title": "YooChat! - AI with Personality",
+    "twitter_description": "Discover YooChat! Unique chatbots with empathy, humor or creativity to keep you company anytime."
   }
-  
+}

@@ -1,12 +1,29 @@
 {
-    "title": "YooChat!",
-    "slogan": "Inteligência Artificial com personalidade!",
-    "choose_model": "Escolha um modelo de chatbot para conversar",
-    "login_hint": "Faça login para melhor experiência.",
-    "carousel_back": "Voltar carrossel",
-    "carousel_next": "Avançar carrossel",
-    "exit": "sair",
-    "selected_label": "Selecionado",
-  "select_label": "Selecionar"
+  "title": "YooChat!",
+  "slogan": "Inteligência Artificial com personalidade!",
+  "choose_model": "Escolha um modelo de chatbot para conversar",
+  "login_hint": "Faça login para melhor experiência.",
+  "carousel_back": "Voltar carrossel",
+  "carousel_next": "Avançar carrossel",
+  "exit": "sair",
+  "selected_label": "Selecionado",
+  "select_label": "Selecionar",
+  "footer_copyright": "Desenvolvido por",
+  "footer_terms": "Termos de Serviço",
+  "footer_privacy": "Política de Privacidade",
+  "chat_with": "Conversando com",
+  "start_message": "Envie uma mensagem para começar a conversa.",
+  "select_personality": "Selecione uma personalidade para começar.",
+  "send_button": "Enviar",
+  "clear_button": "Limpar conversa",
+  "placeholder": "Digite sua mensagem...",
+
+  "meta": {
+    "title": "YooChat | Chatbot com personalidades únicas e divertidas",
+    "description": "Explore o YooChat, o chatbot com personalidades únicas! Receba conselhos, diversão ou ajuda prática com uma IA personalizada pra você.",
+    "og_title": "YooChat! - Inteligência Artificial com Personalidade",
+    "og_description": "Chatbots com atitude, empatia, criatividade e humor. O jeito mais divertido de conversar com uma IA.",
+    "twitter_title": "YooChat! - Inteligência Artificial com Personalidade",
+    "twitter_description": "Descubra o YooChat! Chatbots únicos com empatia, humor ou criatividade pra te acompanhar em qualquer momento."
   }
-  
+}

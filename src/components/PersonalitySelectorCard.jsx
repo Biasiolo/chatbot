@@ -2,8 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 export default function PersonalitySelectorCard({ personality, selected, onSelect }) {
+  const { t } = useTranslation("personalities");
 
-  const { t } = useTranslation();
   return (
     <div
       onClick={onSelect}
@@ -28,9 +28,7 @@ export default function PersonalitySelectorCard({ personality, selected, onSelec
           : "bg-gradient-to-br from-gray-800/90 to-gray-900/90 border border-gray-700/50 hover:shadow-lg hover:shadow-purple-500/60"
         }
       `}
-      style={{
-        backdropFilter: "blur(8px)",
-      }}
+      style={{ backdropFilter: "blur(8px)" }}
     >
       {/* Indicador de seleção */}
       {selected && (
@@ -43,12 +41,7 @@ export default function PersonalitySelectorCard({ personality, selected, onSelec
         </div>
       )}
 
-      {/* Efeito de brilho no fundo (sutilmente animado) */}
-      <div className={`absolute inset-0 bg-gradient-to-tr from-transparent 
-        ${selected ? "via-purple-500/5" : "via-blue-500/5"} 
-        to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
-
-      {/* Imagem do avatar com moldura */}
+      {/* Imagem */}
       <div className={`
         relative 
         w-15 h-15 
@@ -65,7 +58,7 @@ export default function PersonalitySelectorCard({ personality, selected, onSelec
       `}>
         <img
           src={personality.image}
-          alt={personality.name}
+          alt={t(`${personality.id}.name`)}
           className="w-full h-full object-cover"
           loading="lazy"
         />
@@ -80,45 +73,21 @@ export default function PersonalitySelectorCard({ personality, selected, onSelec
         `} />
       </div>
 
-      {/* Nome da personalidade */}
-      <h3 className={`
-        font-bold 
-        text-sm
-        mb-2
-        transition-colors
-        duration-300
-        ${selected ? "text-zinc-200" : "text-gray-100"}
-      `}>
-        {personality.name}
+      {/* Nome */}
+      <h3 className={`font-bold text-sm mb-2 transition-colors duration-300 ${selected ? "text-zinc-200" : "text-gray-100"}`}>
+        {t(`${personality.id}.name`)}
       </h3>
 
       {/* Descrição */}
-      <p className={`
-        text-xs
-        line-clamp-3
-        transition-colors
-        duration-300
-        ${selected ? "text-purple-100" : "text-gray-300"}
-      `}>
-        {personality.description}
+      <p className={`text-xs line-clamp-3 transition-colors duration-300 ${selected ? "text-purple-100" : "text-gray-300"}`}>
+        {t(`${personality.id}.description`)}
       </p>
-      
-      {/* Botão sutil */}
-      <div className={`
-        mt-3
-        py-1
-        px-3
-        rounded-full
-        text-xs
-        font-medium
-        transition-all
-        duration-300
-        ${selected 
-          ? "bg-white/20 text-white" 
-          : "bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30"
-        }
-      `}>
-        {selected ? t("selected_label") : t("select_label")}
+
+      {/* Botão */}
+      <div className={`mt-3 py-1 px-3 rounded-full text-xs font-medium transition-all duration-300 ${selected 
+        ? "bg-white/20 text-white" 
+        : "bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30"}`}>
+        {selected ? t("selected_label", { ns: "translation" }) : t("select_label", { ns: "translation" })}
       </div>
     </div>
   );

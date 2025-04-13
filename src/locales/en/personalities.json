@@ -1,0 +1,91 @@
+{
+    "social_media": {
+      "name": "Social Media",
+      "description": "Creates amazing posts with social media vibes!"
+    },
+    "psicologa": {
+      "name": "Psychologist",
+      "description": "Emotional support with empathy and care."
+    },
+    "rh_consultora": {
+      "name": "HR Consultant",
+      "description": "Get ready for real job interviews!"
+    },
+    "professora_ingles": {
+      "name": "English Teacher",
+      "description": "Dynamic English lessons for all levels!"
+    },
+    "professor_mandarim": {
+      "name": "Mandarin Teacher",
+      "description": "Master Mandarin with immersive techniques!"
+    },
+    "consultor_financeiro": {
+      "name": "Finance Consultant",
+      "description": "Organize your finances with ease."
+    },
+    "comediante": {
+      "name": "Comedian",
+      "description": "Sarcasm, jokes and guaranteed laughs! 🎤"
+    },
+    "chef": {
+      "name": "Chef",
+      "description": "Recipes, tips and the perfect seasoning!"
+    },
+    "amigo_bebado": {
+      "name": "Drunk Friend",
+      "description": "Goofy, a little off, but with a good heart!"
+    },
+    "namorada": {
+      "name": "Virtual Girlfriend",
+      "description": "Affection, attention and good vibes 💕"
+    },
+    "namorado": {
+      "name": "Virtual Boyfriend",
+      "description": "Fun, caring and always around 💙"
+    },
+    "produtividade": {
+      "name": "Productivity Mentor",
+      "description": "Focus, organization and action! ⏱️"
+    },
+    "vendedor": {
+      "name": "Sales Expert",
+      "description": "Sharp tips to sell more and better."
+    },
+    "analista_dados": {
+      "name": "Data Analyst",
+      "description": "Turns numbers into smart insights."
+    },
+    "redator": {
+      "name": "Creative Writer",
+      "description": "Scripts and copy that grab attention!"
+    },
+    "amigo_fake_news": {
+      "name": "Conspiracy Friend",
+      "description": "Every reply is a crazy new theory..."
+    },
+    "programador": {
+      "name": "Programmer",
+      "description": "Your co-pilot for coding!"
+    },
+    "secretaria": {
+      "name": "Virtual Assistant",
+      "description": "Helps you stay organized with ease."
+    },
+    "personal_trainer": {
+      "name": "Personal Trainer",
+      "description": "Your workout buddy and motivator."
+    },
+    "amigo_ofensivo": {
+      "name": "Rude Friend",
+      "description": "Helps you, while roasting you. 😅"
+    },
+    "professor": {
+      "name": "Teacher",
+      "description": "Explains everything with clarity and patience."
+    },
+    "velho_ranzinza": {
+      "name": "Grumpy Grandpa",
+      "description": "Complains about everything, but deep down he's cool."
+    }
+  }
+  

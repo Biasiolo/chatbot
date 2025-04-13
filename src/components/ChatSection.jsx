@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -18,6 +19,8 @@ export default function ChatSection({
   isMobile,
   isKeyboardOpen
 }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (!loading) {
       inputRef?.current?.focus();
@@ -37,7 +40,7 @@ export default function ChatSection({
       {personality && (
         <div className="bg-gradient-to-r from-indigo-700 to-purple-900 text-zinc-100 p-4">
           <h2 className="text-lg font-semibold">
-            Conversando com: {personality.name}
+            {t("chat_with")}: {personality.name}
           </h2>
           <p className="text-sm text-purple-100">{personality.description}</p>
         </div>
@@ -49,9 +52,7 @@ export default function ChatSection({
       >
         {messages.length === 0 && !loading && (
           <div className="text-center text-gray-300 p-4">
-            {personality
-              ? "Envie uma mensagem para começar a conversa."
-              : "Selecione uma personalidade para começar."}
+            {personality ? t("start_message") : t("select_personality")}
           </div>
         )}
 
@@ -79,34 +80,34 @@ export default function ChatSection({
                   msg.text
                 ) : (
                   <ReactMarkdown
-  remarkPlugins={[remarkGfm]}
-  components={{
-    p: ({ children }) => (
-      <p className="text-sm leading-relaxed text-zinc-100 mb-2">{children}</p>
-    ),
-    strong: ({ children }) => (
-      <strong className="font-bold text-md text-green-400">{children}</strong>
-    ),
-    ul: ({ children }) => (
-      <ul className="list-disc pl-5 text-zinc-100 mb-2">{children}</ul>
-    ),
-    li: ({ children }) => (
-      <li className="mb-1">{children}</li>
-    ),
-    h1: ({ children }) => (
-      <h1 className="text-xl font-bold mb-2 text-green-400">{children}</h1>
-    ),
-    h2: ({ children }) => (
-      <h2 className="text-lg font-semibold mb-2 text-green-400">{children}</h2>
-    ),
-    em: ({ children }) => (
-      <em className="italic text-zinc-300">{children}</em>
-    ),
-    br: () => <br />
-  }}
->
-  {msg.text}
-</ReactMarkdown>
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      p: ({ children }) => (
+                        <p className="text-sm leading-relaxed text-zinc-100 mb-2">{children}</p>
+                      ),
+                      strong: ({ children }) => (
+                        <strong className="font-bold text-md text-green-400">{children}</strong>
+                      ),
+                      ul: ({ children }) => (
+                        <ul className="list-disc pl-5 text-zinc-100 mb-2">{children}</ul>
+                      ),
+                      li: ({ children }) => (
+                        <li className="mb-1">{children}</li>
+                      ),
+                      h1: ({ children }) => (
+                        <h1 className="text-xl font-bold mb-2 text-green-400">{children}</h1>
+                      ),
+                      h2: ({ children }) => (
+                        <h2 className="text-lg font-semibold mb-2 text-green-400">{children}</h2>
+                      ),
+                      em: ({ children }) => (
+                        <em className="italic text-zinc-300">{children}</em>
+                      ),
+                      br: () => <br />
+                    }}
+                  >
+                    {msg.text}
+                  </ReactMarkdown>
                 )}
               </div>
             </div>
@@ -140,9 +141,9 @@ export default function ChatSection({
             ref={inputRef}
             className="flex-1 border border-gray-600 rounded-xl px-4 py-2 text-base bg-gray-900 text-zinc-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 resize-none"
             rows={2}
-            placeholder="Digite sua mensagem..."
+            placeholder={t("placeholder")}
             value={input}
-            maxLength={500} // 🔒 Limite de caracteres aqui (ajustável)
+            maxLength={500}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
@@ -166,7 +167,7 @@ export default function ChatSection({
             onClick={handleSend}
             disabled={loading || !personality || !input.trim()}
           >
-            Enviar
+            {t("send_button")}
           </button>
         </div>
         <div className="text-center">
@@ -175,7 +176,7 @@ export default function ChatSection({
             className="text-gray-400 text-xs hover:text-red-400 transition p-1 cursor-pointer"
             disabled={messages.length === 0}
           >
-            🗑️ Limpar conversa
+            🗑️ {t("clear_button")}
           </button>
         </div>
       </div>
