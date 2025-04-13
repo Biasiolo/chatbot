@@ -1,91 +1,96 @@
 {
-    "social_media": {
-      "name": "Social Media",
-      "description": "Cria posts incríveis com vibes de redes sociais!"
-    },
-    "psicologa": {
-      "name": "Psicóloga",
-      "description": "Apoio para o seu bem-estar com empatia."
-    },
-    "rh_consultora": {
-      "name": "Consultora de RH",
-      "description": "Prepara você para processos seletivos reais!"
-    },
-    "professora_ingles": {
-      "name": "Professora Inglês",
-      "description": "Aulas dinâmicas de inglês para todos os níveis!"
-    },
-    "professor_mandarim": {
-      "name": "Professor Mandarim",
-      "description": "Domine o mandarim com técnicas imersivas!"
-    },
-    "consultor_financeiro": {
-      "name": "Consultora Finanças",
-      "description": "Organiza suas finanças sem complicação."
-    },
-    "comediante": {
-      "name": "Comediante",
-      "description": "Piadas, sarcasmo e risadas garantidas! 🎤"
-    },
-    "chef": {
-      "name": "Chef de Cozinha",
-      "description": "Receitas, dicas e tempero na medida certa!"
-    },
-    "amigo_bebado": {
-      "name": "Amigo Bêbado",
-      "description": "Zoando, meio enrolado, mas do bem!"
-    },
-    "namorada": {
-      "name": "Namorada Virtual",
-      "description": "Carinho, atenção e bom humor 💕"
-    },
-    "namorado": {
-      "name": "Namorado Virtual",
-      "description": "Companhia constante com pegada 💙"
-    },
-    "produtividade": {
-      "name": "Produtividade",
-      "description": "Foco, organização e ação! ⏱️"
-    },
-    "vendedor": {
-      "name": "Vendedor Expert",
-      "description": "Dicas certeiras pra vender mais e melhor."
-    },
-    "analista_dados": {
-      "name": "Analista de Dados",
-      "description": "Transforma números em soluções inteligentes."
-    },
-    "redator": {
-      "name": "Redator Criativo",
-      "description": "Roteiros e textos que prendem a atenção!"
-    },
-    "amigo_fake_news": {
-      "name": "Amigo Fake News",
-      "description": "Cada resposta é uma teoria nova..."
-    },
-    "programador": {
-      "name": "Programador",
-      "description": "Seu co-piloto na programação!"
-    },
-    "secretaria": {
-      "name": "Secretária Virtual",
-      "description": "Sua aliada para organizar a vida com praticidade."
-    },
-    "personal_trainer": {
-      "name": "Personal Trainer",
-      "description": "Seu parceiro de treino e disciplina"
-    },
-    "amigo_ofensivo": {
-      "name": "Amigo Ofensivo",
-      "description": "Te ajuda zoando, porque você merece, seu inútil!"
-    },
-    "professor": {
-      "name": "Professor",
-      "description": "Explica tudo com clareza e paciência"
-    },
-    "velho_ranzinza": {
-      "name": "Senhor Ranzinza",
-      "description": "Reclama de tudo, mas no fundo é gente boa."
-    }
-  }
+  "social_media": {
+    "name": "Social Media",
+    "description": "Cria posts incríveis com vibes de redes sociais!"
+  },
+  "psicologa": {
+    "name": "Psicóloga",
+    "description": "Apoio para o seu bem-estar com empatia."
+  },
+  "rh_consultora": {
+    "name": "Consultora de RH",
+    "description": "Prepara você para processos seletivos reais!"
+  },
+  "humor_aleatorio": {
+    "name": "Humor Aleatório",
+    "description": "Cada mensagem, uma personalidade surpresa!"
+  },
   
+  "professor_mandarim": {
+    "name": "Professor Mandarim",
+    "description": "Domine o mandarim com técnicas imersivas!"
+  },
+  "consultor_financeiro": {
+    "name": "Consultora Finanças",
+    "description": "Organiza suas finanças sem complicação."
+  },
+  "comediante": {
+    "name": "Comediante",
+    "description": "Piadas, sarcasmo e risadas garantidas! 🎤"
+  },
+  "professora_ingles": {
+    "name": "Professora Inglês",
+    "description": "Aulas dinâmicas de inglês para todos os níveis!"
+  },
+  "chef": {
+    "name": "Chef de Cozinha",
+    "description": "Receitas, dicas e tempero na medida certa!"
+  },
+  "amigo_bebado": {
+    "name": "Amigo Bêbado",
+    "description": "Zoando, meio enrolado, mas do bem!"
+  },
+  "namorada": {
+    "name": "Namorada Virtual",
+    "description": "Carinho, atenção e bom humor 💕"
+  },
+  "namorado": {
+    "name": "Namorado Virtual",
+    "description": "Companhia constante com pegada 💙"
+  },
+  "produtividade": {
+    "name": "Produtividade",
+    "description": "Foco, organização e ação! ⏱️"
+  },
+  
+  "vendedor": {
+    "name": "Vendedor Expert",
+    "description": "Dicas certeiras pra vender mais e melhor."
+  },
+  "analista_dados": {
+    "name": "Analista de Dados",
+    "description": "Transforma números em soluções inteligentes."
+  },
+  "redator": {
+    "name": "Redator Criativo",
+    "description": "Roteiros e textos que prendem a atenção!"
+  },
+  "amigo_fake_news": {
+    "name": "Amigo Fake News",
+    "description": "Cada resposta é uma teoria nova..."
+  },
+  "programador": {
+    "name": "Programador",
+    "description": "Seu co-piloto na programação!"
+  },
+  "secretaria": {
+    "name": "Secretária Virtual",
+    "description": "Sua aliada para organizar a vida com praticidade."
+  },
+  "personal_trainer": {
+    "name": "Personal Trainer",
+    "description": "Seu parceiro de treino e disciplina"
+  },
+  "amigo_ofensivo": {
+    "name": "Amigo Ofensivo",
+    "description": "Te ajuda zoando, porque você merece, seu inútil!"
+  },
+  "professor": {
+    "name": "Professor",
+    "description": "Explica tudo com clareza e paciência"
+  },
+  "velho_ranzinza": {
+    "name": "Senhor Ranzinza",
+    "description": "Reclama de tudo, mas no fundo é gente boa."
+  }
+}
