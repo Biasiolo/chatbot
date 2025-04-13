@@ -113,7 +113,7 @@ export default function HomePage() {
       const promptFinal = `
       ${personality.prompt}
 
-      Please answer in the language of the currents question. The username is "${userName}". Address the username in a natural and personalized way.
+      Please answer in the language of the user question. The username is "${userName}". Address the username in a natural and personalized way.
       
       Here is the recent conversation history:
       ${contextMessages}
