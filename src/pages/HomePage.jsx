@@ -111,15 +111,15 @@ export default function HomePage() {
         .join("\n");
   
       const promptFinal = `
-  ${personality.prompt}
-  
-  O nome do usuário é "${userName}". Trate-o pelo nome de forma natural e personalizada.
-  
-  Aqui está o histórico recente da conversa:
-  ${contextMessages}
-  
-  Usuário: ${input}
-  `;
+      ${personality.prompt}
+
+      Please answer in the language of the question. The username is "${userName}". Address the username in a natural and personalized way.
+      
+      Here is the recent conversation history:
+      ${contextMessages}
+      
+      Username: ${input}
+      `;
   
       const responseText = await sendMessageToGemini(promptFinal);
       const botMessage = { role: "bot", text: responseText };
