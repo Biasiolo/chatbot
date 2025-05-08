@@ -40,7 +40,7 @@ export default function ChatSection({
       {personality && (
         <div className="bg-gradient-to-r from-indigo-700 to-purple-900 text-zinc-100 p-4">
           <h2 className="text-lg font-semibold">
-            {t("chat_with")}: {personality.name}
+            {t("chat_with")} {personality.name}
           </h2>
           <p className="text-sm text-purple-100">{personality.description}</p>
         </div>
